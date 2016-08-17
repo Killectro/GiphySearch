@@ -7,15 +7,21 @@
 //
 
 import UIKit
+import Moya
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    private(set) var provider = RxMoyaProvider<GiphyAPI>()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+
+        let rootController = window?.rootViewController as? TrendingViewController
+        rootController?.viewModel = TrendingViewModel(provider: provider)
+
         return true
     }
 

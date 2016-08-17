@@ -27,7 +27,10 @@ extension GiphyAPI: TargetType {
     }
 
     var method: Moya.Method {
-        return .GET
+        switch self {
+        case .search, .trending:
+            return .GET
+        }
     }
 
     var parameters: [String : AnyObject]? {

@@ -12,6 +12,7 @@
 		A48201021D64D56A0015C80A /* TrendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48201011D64D56A0015C80A /* TrendingViewModel.swift */; };
 		A48201051D64D83D0015C80A /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48201041D64D83D0015C80A /* Gif.swift */; };
 		A48201081D64E0110015C80A /* GiphyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48201071D64E0110015C80A /* GiphyAPI.swift */; };
+		A482010E1D64F4120015C80A /* GiphyResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A482010D1D64F4120015C80A /* GiphyResponse.swift */; };
 		A48AAB061D64C0FC00B7DB5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48AAB051D64C0FC00B7DB5A /* AppDelegate.swift */; };
 		A48AAB0B1D64C0FC00B7DB5A /* Trending.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48AAB091D64C0FC00B7DB5A /* Trending.storyboard */; };
 		A48AAB0D1D64C0FC00B7DB5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A48AAB0C1D64C0FC00B7DB5A /* Assets.xcassets */; };
@@ -41,6 +42,7 @@
 		A48201011D64D56A0015C80A /* TrendingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingViewModel.swift; sourceTree = "<group>"; };
 		A48201041D64D83D0015C80A /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		A48201071D64E0110015C80A /* GiphyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyAPI.swift; sourceTree = "<group>"; };
+		A482010D1D64F4120015C80A /* GiphyResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyResponse.swift; sourceTree = "<group>"; };
 		A48AAB021D64C0FC00B7DB5A /* GiphySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiphySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A48AAB051D64C0FC00B7DB5A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A48AAB0A1D64C0FC00B7DB5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Trending.storyboard; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				A48201041D64D83D0015C80A /* Gif.swift */,
+				A482010D1D64F4120015C80A /* GiphyResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -418,6 +421,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A48AAB061D64C0FC00B7DB5A /* AppDelegate.swift in Sources */,
+				A482010E1D64F4120015C80A /* GiphyResponse.swift in Sources */,
 				A48201021D64D56A0015C80A /* TrendingViewModel.swift in Sources */,
 				A48201051D64D83D0015C80A /* Gif.swift in Sources */,
 				A48AAB2C1D64C2A700B7DB5A /* TrendingViewController.swift in Sources */,

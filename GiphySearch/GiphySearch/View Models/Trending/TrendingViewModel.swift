@@ -11,5 +11,19 @@ import RxSwift
 import Moya
 
 final class TrendingViewModel: NSObject {
-    
+    var provider: RxMoyaProvider<GiphyAPI>!
+
+    var gifs = Variable<[Gif]>([])
+
+    init(provider: RxMoyaProvider<GiphyAPI>) {
+        self.provider = provider
+    }
+}
+
+// MARK: - Networking
+extension TrendingViewModel {
+    func getTrending() -> Observable<Response> {
+        // TODO: - Pagination
+        return provider.request(GiphyAPI.trending(page: 0))
+    }
 }
