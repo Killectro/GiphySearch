@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D7BB2AC044D3347531B26C6 /* Pods_GiphySearchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D43E8AA8C096B5DF6AF0803 /* Pods_GiphySearchTests.framework */; };
 		8FBB957EAC088BBCDE63B44C /* Pods_GiphySearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD77228ABF9C43E2CCD1D166 /* Pods_GiphySearch.framework */; };
+		A48201021D64D56A0015C80A /* TrendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48201011D64D56A0015C80A /* TrendingViewModel.swift */; };
 		A48AAB061D64C0FC00B7DB5A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48AAB051D64C0FC00B7DB5A /* AppDelegate.swift */; };
 		A48AAB0B1D64C0FC00B7DB5A /* Trending.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48AAB091D64C0FC00B7DB5A /* Trending.storyboard */; };
 		A48AAB0D1D64C0FC00B7DB5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A48AAB0C1D64C0FC00B7DB5A /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		5BB0E7EA10389AB6F15C75B2 /* Pods-GiphySearchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearchTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySearchTests/Pods-GiphySearchTests.release.xcconfig"; sourceTree = "<group>"; };
 		7D43E8AA8C096B5DF6AF0803 /* Pods_GiphySearchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiphySearchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB99C8C628582F4ACA9AC45 /* Pods-GiphySearchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearchTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySearchTests/Pods-GiphySearchTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A48201011D64D56A0015C80A /* TrendingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrendingViewModel.swift; path = GiphySearch/TrendingViewModel.swift; sourceTree = SOURCE_ROOT; };
 		A48AAB021D64C0FC00B7DB5A /* GiphySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GiphySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A48AAB051D64C0FC00B7DB5A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A48AAB0A1D64C0FC00B7DB5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Trending.storyboard; sourceTree = "<group>"; };
@@ -94,6 +96,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A48201001D64D5520015C80A /* Trending */ = {
+			isa = PBXGroup;
+			children = (
+				A48201011D64D56A0015C80A /* TrendingViewModel.swift */,
+			);
+			name = Trending;
+			sourceTree = "<group>";
+		};
 		A48AAAF91D64C0FC00B7DB5A = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +155,7 @@
 		A48AAB261D64C1DD00B7DB5A /* View Models */ = {
 			isa = PBXGroup;
 			children = (
+				A48201001D64D5520015C80A /* Trending */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -385,6 +396,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A48AAB061D64C0FC00B7DB5A /* AppDelegate.swift in Sources */,
+				A48201021D64D56A0015C80A /* TrendingViewModel.swift in Sources */,
 				A48AAB2C1D64C2A700B7DB5A /* TrendingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
