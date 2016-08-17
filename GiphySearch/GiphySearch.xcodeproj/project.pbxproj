@@ -127,9 +127,9 @@
 		A48AAAF91D64C0FC00B7DB5A = {
 			isa = PBXGroup;
 			children = (
-				6294DA72DC0DF396FC35EC2D /* Frameworks */,
 				A48AAB041D64C0FC00B7DB5A /* GiphySearch */,
 				A48AAB191D64C0FC00B7DB5A /* GiphySearchTests */,
+				6294DA72DC0DF396FC35EC2D /* Frameworks */,
 				270BF2B26714CD141ACC62A7 /* Pods */,
 				A48AAB031D64C0FC00B7DB5A /* Products */,
 			);
