@@ -97,11 +97,11 @@
 		A48AAAF91D64C0FC00B7DB5A = {
 			isa = PBXGroup;
 			children = (
+				6294DA72DC0DF396FC35EC2D /* Frameworks */,
 				A48AAB041D64C0FC00B7DB5A /* GiphySearch */,
 				A48AAB191D64C0FC00B7DB5A /* GiphySearchTests */,
-				A48AAB031D64C0FC00B7DB5A /* Products */,
 				270BF2B26714CD141ACC62A7 /* Pods */,
-				6294DA72DC0DF396FC35EC2D /* Frameworks */,
+				A48AAB031D64C0FC00B7DB5A /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,10 +117,10 @@
 		A48AAB041D64C0FC00B7DB5A /* GiphySearch */ = {
 			isa = PBXGroup;
 			children = (
-				A48AAB281D64C22300B7DB5A /* Resources */,
 				A48AAB271D64C1E300B7DB5A /* App */,
-				A48AAB261D64C1DD00B7DB5A /* View Models */,
+				A48AAB281D64C22300B7DB5A /* Resources */,
 				A48AAB251D64C1D800B7DB5A /* View Controllers */,
+				A48AAB261D64C1DD00B7DB5A /* View Models */,
 			);
 			path = GiphySearch;
 			sourceTree = "<group>";
@@ -139,14 +139,14 @@
 			children = (
 				A48AAB291D64C24100B7DB5A /* Trending */,
 			);
-			name = "View Controllers";
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 		A48AAB261D64C1DD00B7DB5A /* View Models */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = "View Models";
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 		A48AAB271D64C1E300B7DB5A /* App */ = {
@@ -154,17 +154,17 @@
 			children = (
 				A48AAB051D64C0FC00B7DB5A /* AppDelegate.swift */,
 			);
-			name = App;
+			path = App;
 			sourceTree = "<group>";
 		};
 		A48AAB281D64C22300B7DB5A /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				A48AAB0C1D64C0FC00B7DB5A /* Assets.xcassets */,
-				A48AAB0E1D64C0FC00B7DB5A /* LaunchScreen.storyboard */,
 				A48AAB111D64C0FC00B7DB5A /* Info.plist */,
+				A48AAB0E1D64C0FC00B7DB5A /* LaunchScreen.storyboard */,
 			);
-			name = Resources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		A48AAB291D64C24100B7DB5A /* Trending */ = {
@@ -173,7 +173,7 @@
 				A48AAB2A1D64C24F00B7DB5A /* Storyboard */,
 				A48AAB2B1D64C2A700B7DB5A /* TrendingViewController.swift */,
 			);
-			name = Trending;
+			path = Trending;
 			sourceTree = "<group>";
 		};
 		A48AAB2A1D64C24F00B7DB5A /* Storyboard */ = {
@@ -181,7 +181,7 @@
 			children = (
 				A48AAB091D64C0FC00B7DB5A /* Trending.storyboard */,
 			);
-			name = Storyboard;
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -414,6 +414,7 @@
 				A48AAB0A1D64C0FC00B7DB5A /* Base */,
 			);
 			name = Trending.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		A48AAB0E1D64C0FC00B7DB5A /* LaunchScreen.storyboard */ = {
@@ -422,6 +423,7 @@
 				A48AAB0F1D64C0FC00B7DB5A /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -515,7 +517,7 @@
 			baseConfigurationReference = F52FB3A5C87AECD230A1EAA6 /* Pods-GiphySearch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = GiphySearch/Info.plist;
+				INFOPLIST_FILE = GiphySearch/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.killectro.GiphySearch;
@@ -528,7 +530,7 @@
 			baseConfigurationReference = 19A24627A05A911F341CC3B1 /* Pods-GiphySearch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = GiphySearch/Info.plist;
+				INFOPLIST_FILE = GiphySearch/Resources/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.killectro.GiphySearch;
