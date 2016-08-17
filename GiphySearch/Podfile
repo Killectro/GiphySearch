@@ -12,7 +12,9 @@ target 'GiphySearch' do
   pod 'NSObject+Rx'
   pod 'ObjectMapper'
   pod 'Moya-ObjectMapper/RxSwift'
-
+  pod 'SwiftGifOrigin'
+  pod 'RxAlamofire'
+  
   target 'GiphySearchTests' do
     inherit! :search_paths
     # Pods for testing

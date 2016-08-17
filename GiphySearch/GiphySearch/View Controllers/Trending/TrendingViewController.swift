@@ -39,7 +39,7 @@ private extension TrendingViewController {
         // Bind gifs to table view cells
         viewModel.gifs.asObservable()
             .bindTo(
-                tableView.rx_itemsWithCellIdentifier("gifCell", cellType: UITableViewCell.self),
+                tableView.rx_itemsWithCellIdentifier("gifCell", cellType: GifTableViewCell.self),
                 curriedArgument: configureTableCell
             )
             .addDisposableTo(rx_disposeBag)
@@ -56,8 +56,9 @@ private extension TrendingViewController {
             .addDisposableTo(rx_disposeBag)
     }
 
-    func configureTableCell(row: Int, gif: Gif, cell: UITableViewCell) {
-        cell.textLabel?.text = "height \(gif.height) -- width \(gif.width)"
+    func configureTableCell(row: Int, gif: Gif, cell: GifTableViewCell) {
+//        cell.textLabel?.text = "\(gif.height) --- \(gif.width)"
+        cell.viewModel = GifViewModel(gif: gif)
     }
 }
 
