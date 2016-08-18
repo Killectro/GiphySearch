@@ -14,7 +14,11 @@ import RxAlamofire
 final class GifViewModel: NSObject {
     private var gif = Variable<Gif!>(nil)
 
-    var gifImage = BehaviorSubject<UIImage?>(value: nil)
+    private var gifImage: Observable<UIImage?>!
+    private var stillImage: Observable<UIImage?>!
+
+    var isPlaying = Variable<Bool>(false)
+    var displayImage: Observable<UIImage?>!
 
     init(gif: Gif) {
         super.init()
@@ -22,13 +26,20 @@ final class GifViewModel: NSObject {
         self.gif = Variable<Gif!>(gif)
 
         // Retrieve the GIF data from the server and map it to an image
-        requestData(.GET, gif.url.absoluteString)
+        gifImage = requestData(.GET, gif.url.absoluteString)
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .UserInteractive))
             .map { res, data in
                 return UIImage.gifWithData(data)
             }
-//            .observeOn(MainScheduler.instance)
-            .bindTo(gifImage)
-            .addDisposableTo(rx_disposeBag)
+
+        stillImage = requestData(.GET, gif.stillUrl.absoluteString)
+            .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .UserInteractive))
+            .map { res, data in
+                return UIImage.gifWithData(data)
+            }
+
+        displayImage = Observable.combineLatest(gifImage, stillImage, isPlaying.asObservable()) { (gif, still, isPlaying) in
+            return isPlaying ? gif : still
+        }
     }
 }
