@@ -57,7 +57,6 @@ private extension TrendingViewController {
     }
 
     func configureTableCell(row: Int, gif: Gif, cell: GifTableViewCell) {
-//        cell.textLabel?.text = "\(gif.height) --- \(gif.width)"
         cell.viewModel = GifViewModel(gif: gif)
     }
 }

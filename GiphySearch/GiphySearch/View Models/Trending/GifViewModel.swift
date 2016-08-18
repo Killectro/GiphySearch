@@ -32,10 +32,11 @@ final class GifViewModel: NSObject {
                 return UIImage.gifWithData(data)
             }
 
+        // Retrieve the still image from the server and map it to an image
         stillImage = requestData(.GET, gif.stillUrl.absoluteString)
             .observeOn(ConcurrentDispatchQueueScheduler(globalConcurrentQueueQOS: .UserInteractive))
             .map { res, data in
-                return UIImage.gifWithData(data)
+                return UIImage(data: data)
             }
 
         displayImage = Observable.combineLatest(gifImage, stillImage, isPlaying.asObservable()) { (gif, still, isPlaying) in

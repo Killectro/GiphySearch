@@ -37,12 +37,13 @@ final class GifTableViewCell: UITableViewCell {
 // MARK: - Setup
 private extension GifTableViewCell {
     func setupBindings() {
-        // Bind our image view to whatever comes back from the URL
+        // Bind our image view to either the still or gif image
         viewModel?.displayImage
             .observeOn(MainScheduler.instance)
             .bindTo(gifImageView.rx_image)
             .addDisposableTo(reusableDisposeBag)
 
+        // Toggle on/off the gif playing when user taps the image view
         gifImageView.rx_gesture(.Tap)
             .subscribeNext { [weak self] _ in
                 guard let vm = self?.viewModel else { return }
