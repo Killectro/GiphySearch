@@ -40,7 +40,10 @@ final class TrendingViewController: UIViewController {
 
     // Determine whether or not we're near the bottom of the table and should paginate
     func tableView(tableView: UITableView, offsetIsNearBottom contentOffset: CGPoint) -> Bool {
-        return contentOffset.y + tableView.frame.size.height + startLoadingOffset > tableView.contentSize.height
+        let isAtBottom = contentOffset.y + tableView.frame.height + startLoadingOffset > tableView.contentSize.height
+        let hasContent = tableView.contentSize.height > tableView.frame.height
+
+        return isAtBottom && hasContent
     }
 }
 

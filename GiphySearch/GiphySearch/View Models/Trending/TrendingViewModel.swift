@@ -37,14 +37,14 @@ final class TrendingViewModel: NSObject {
     }
 }
 
-// MARK: - Networking & Setup
+// MARK: - Setup
 private extension TrendingViewModel {
     func setupTrending() {
         trendingGifs = recursivelyGetResults(.trending(page: 0), loadedSoFar: [])
     }
 
     func setupSearchResults() {
-        searchGifs = searchText.asObservable().flatMap { [weak self] text -> Observable<[Gif]> in
+        searchGifs = searchText.asObservable().flatMapLatest { [weak self] text -> Observable<[Gif]> in
             guard let strongSelf = self else { return Observable.just([]) }
 
             if text.isEmpty {
