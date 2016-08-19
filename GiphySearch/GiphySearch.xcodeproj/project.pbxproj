@@ -113,8 +113,8 @@
 		A48201001D64D5520015C80A /* Trending */ = {
 			isa = PBXGroup;
 			children = (
-				A48201011D64D56A0015C80A /* TrendingViewModel.swift */,
 				A48201121D650B770015C80A /* GifViewModel.swift */,
+				A48201011D64D56A0015C80A /* TrendingViewModel.swift */,
 			);
 			path = Trending;
 			sourceTree = "<group>";
@@ -142,7 +142,7 @@
 			children = (
 				A48201101D650A500015C80A /* GifTableViewCell.swift */,
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		A48201141D6522390015C80A /* Transforms */ = {
@@ -150,7 +150,7 @@
 			children = (
 				A48201151D6522480015C80A /* StringFloatTransform.swift */,
 			);
-			name = Transforms;
+			path = Transforms;
 			sourceTree = "<group>";
 		};
 		A48201171D66755D0015C80A /* Third Party */ = {
@@ -158,7 +158,7 @@
 			children = (
 				A48201181D6675710015C80A /* UIImage+Gif.swift */,
 			);
-			name = "Third Party";
+			path = "Third Party";
 			sourceTree = "<group>";
 		};
 		A48AAAF91D64C0FC00B7DB5A = {
@@ -184,14 +184,14 @@
 		A48AAB041D64C0FC00B7DB5A /* GiphySearch */ = {
 			isa = PBXGroup;
 			children = (
-				A48201171D66755D0015C80A /* Third Party */,
-				A482010F1D650A360015C80A /* Views */,
 				A48AAB271D64C1E300B7DB5A /* App */,
 				A48201031D64D8080015C80A /* Models */,
 				A48201061D64DFE90015C80A /* Networking */,
 				A48AAB281D64C22300B7DB5A /* Resources */,
+				A48201171D66755D0015C80A /* Third Party */,
 				A48AAB251D64C1D800B7DB5A /* View Controllers */,
 				A48AAB261D64C1DD00B7DB5A /* View Models */,
+				A482010F1D650A360015C80A /* Views */,
 			);
 			path = GiphySearch;
 			sourceTree = "<group>";
