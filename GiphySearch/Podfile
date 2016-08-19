@@ -18,6 +18,9 @@ target 'GiphySearch' do
   target 'GiphySearchTests' do
     inherit! :search_paths
     # Pods for testing
+
+    pod 'Quick', '0.9.1'
+    pod 'Nimble', '3.2.0'
   end
 
 end

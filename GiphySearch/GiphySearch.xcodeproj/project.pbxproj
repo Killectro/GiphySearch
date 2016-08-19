@@ -21,8 +21,9 @@
 		A48AAB0B1D64C0FC00B7DB5A /* Trending.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48AAB091D64C0FC00B7DB5A /* Trending.storyboard */; };
 		A48AAB0D1D64C0FC00B7DB5A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A48AAB0C1D64C0FC00B7DB5A /* Assets.xcassets */; };
 		A48AAB101D64C0FC00B7DB5A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A48AAB0E1D64C0FC00B7DB5A /* LaunchScreen.storyboard */; };
-		A48AAB1B1D64C0FC00B7DB5A /* GiphySearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48AAB1A1D64C0FC00B7DB5A /* GiphySearchTests.swift */; };
 		A48AAB2C1D64C2A700B7DB5A /* TrendingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48AAB2B1D64C2A700B7DB5A /* TrendingViewController.swift */; };
+		A4A80DD41D67B0C5000013F9 /* GifSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A80DD31D67B0C5000013F9 /* GifSpec.swift */; };
+		A4B7FCD61D67B4570074110B /* GiphyResponseSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B7FCD51D67B4570074110B /* GiphyResponseSpec.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,9 +59,11 @@
 		A48AAB0F1D64C0FC00B7DB5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A48AAB111D64C0FC00B7DB5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A48AAB161D64C0FC00B7DB5A /* GiphySearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GiphySearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A48AAB1A1D64C0FC00B7DB5A /* GiphySearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiphySearchTests.swift; sourceTree = "<group>"; };
 		A48AAB1C1D64C0FC00B7DB5A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A48AAB2B1D64C2A700B7DB5A /* TrendingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingViewController.swift; sourceTree = "<group>"; };
+		A4A80DD21D67B0C4000013F9 /* GiphySearchTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GiphySearchTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		A4A80DD31D67B0C5000013F9 /* GifSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifSpec.swift; sourceTree = "<group>"; };
+		A4B7FCD51D67B4570074110B /* GiphyResponseSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyResponseSpec.swift; sourceTree = "<group>"; };
 		AD77228ABF9C43E2CCD1D166 /* Pods_GiphySearch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiphySearch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B291512E1E6F04F26C45463A /* Pods-GiphySearchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearchTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-GiphySearchTests/Pods-GiphySearchTests.release.xcconfig"; sourceTree = "<group>"; };
 		F52FB3A5C87AECD230A1EAA6 /* Pods-GiphySearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySearch/Pods-GiphySearch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -199,7 +202,8 @@
 		A48AAB191D64C0FC00B7DB5A /* GiphySearchTests */ = {
 			isa = PBXGroup;
 			children = (
-				A48AAB1A1D64C0FC00B7DB5A /* GiphySearchTests.swift */,
+				A4A80DD11D67B0B7000013F9 /* Models */,
+				A4A80DD21D67B0C4000013F9 /* GiphySearchTests-Bridging-Header.h */,
 				A48AAB1C1D64C0FC00B7DB5A /* Info.plist */,
 			);
 			path = GiphySearchTests;
@@ -254,6 +258,15 @@
 				A48AAB091D64C0FC00B7DB5A /* Trending.storyboard */,
 			);
 			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		A4A80DD11D67B0B7000013F9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A4A80DD31D67B0C5000013F9 /* GifSpec.swift */,
+				A4B7FCD51D67B4570074110B /* GiphyResponseSpec.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -473,7 +486,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A48AAB1B1D64C0FC00B7DB5A /* GiphySearchTests.swift in Sources */,
+				A4A80DD41D67B0C5000013F9 /* GifSpec.swift in Sources */,
+				A4B7FCD61D67B4570074110B /* GiphyResponseSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,10 +637,13 @@
 			baseConfigurationReference = 8AB99C8C628582F4ACA9AC45 /* Pods-GiphySearchTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GiphySearchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.killectro.GiphySearchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GiphySearchTests/GiphySearchTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GiphySearch.app/GiphySearch";
 			};
 			name = Debug;
@@ -636,10 +653,12 @@
 			baseConfigurationReference = 5BB0E7EA10389AB6F15C75B2 /* Pods-GiphySearchTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GiphySearchTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.killectro.GiphySearchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GiphySearchTests/GiphySearchTests-Bridging-Header.h";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GiphySearch.app/GiphySearch";
 			};
 			name = Release;
