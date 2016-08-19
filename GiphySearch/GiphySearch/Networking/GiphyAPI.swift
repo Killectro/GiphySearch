@@ -11,7 +11,7 @@ import RxSwift
 import Moya
 
 enum GiphyAPI {
-    case search(searchString: String)
+    case search(searchString: String, page: Int)
     case trending(page: Int)
 }
 
@@ -41,11 +41,15 @@ extension GiphyAPI: TargetType {
 
         var params = [String:AnyObject]()
         switch self {
-        case .search(let searchString):
-            // TODO: - Pagination
+        case let .search(searchString, page):
+
+            let offset = itemsPerPage * page
+
             params = [
                 "q" : searchString.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "+"),
                 "rating" : "r", // Keep it dirty, default to R rated
+                "limit": itemsPerPage,
+                "offset": offset
             ]
         case .trending(let page):
             let offset = itemsPerPage * page
@@ -59,6 +63,7 @@ extension GiphyAPI: TargetType {
         // Always append API key
         params["api_key"] = "dc6zaTOxFJmzC"
 
+        print(params)
         return params
     }
 

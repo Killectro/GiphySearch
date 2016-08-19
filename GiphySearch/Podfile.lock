@@ -30,7 +30,6 @@ PODS:
     - RxCocoa
     - RxSwift
   - RxSwift (2.0.0)
-  - SwiftGifOrigin (1.5.1)
 
 DEPENDENCIES:
   - Moya-ObjectMapper/RxSwift
@@ -41,7 +40,6 @@ DEPENDENCIES:
   - RxCocoa (~> 2.0)
   - RxGesture
   - RxSwift (~> 2.0)
-  - SwiftGifOrigin
 
 SPEC CHECKSUMS:
   Alamofire: fbc829692f351fa1d8a31dd75fd7f7f56fea31fb
@@ -54,8 +52,7 @@ SPEC CHECKSUMS:
   RxCocoa: b0ebd70b4f7450bdb3c8987b122f8fd568dc1e2f
   RxGesture: 5a5d7ee565fb24b1dbede801e7a98d4169ac5818
   RxSwift: d83246efa6f16c50c143bec134649d045498f601
-  SwiftGifOrigin: 2dd51f087f77b676e75bb572f521e06e9ced6c58
 
-PODFILE CHECKSUM: f22376902b4e7b8873d0c224966f902da9f613f9
+PODFILE CHECKSUM: 3ea3eb23aaae1715f13d7564350577a31a29c5f9
 
 COCOAPODS: 1.0.1

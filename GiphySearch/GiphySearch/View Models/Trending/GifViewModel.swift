@@ -8,7 +8,6 @@
 
 import Foundation
 import RxSwift
-import SwiftGifOrigin
 import RxAlamofire
 
 final class GifViewModel: NSObject {

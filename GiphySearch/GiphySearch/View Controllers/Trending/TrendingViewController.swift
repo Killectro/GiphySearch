@@ -19,9 +19,12 @@ final class TrendingViewController: UIViewController {
     var viewModel: TrendingViewModel!
     
     // MARK: - Private Properties
+    private let startLoadingOffset: CGFloat = 20.0
+
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var searchBar: UISearchBar!
-    
+    private var mostRecentlyDisplayedIndexPath: [NSIndexPath]!
+
     // MARK: - View Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +33,43 @@ final class TrendingViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+
+        // Make sure we drop our cache if we are getting low mem warnings from the system
+        NSURLCache.sharedURLCache().removeAllCachedResponses()
+    }
+
+    // Determine whether or not we're near the bottom of the table and should paginate
+    func tableView(tableView: UITableView, offsetIsNearBottom contentOffset: CGPoint) -> Bool {
+        return contentOffset.y + tableView.frame.size.height + startLoadingOffset > tableView.contentSize.height
     }
 }
 
 // MARK: - Setup
 private extension TrendingViewController {
     func setupBindings() {
+        setupTableView()
+        setupSearch()
+        setupPagination()
+    }
+
+    func setupSearch() {
+        let search = searchBar.rx_text
+            .throttle(0.3, scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .shareReplay(1)
+
+        // Bind the search bar text to the view model's search text
+        search
+            .bindTo(viewModel.searchText)
+            .addDisposableTo(rx_disposeBag)
+
+        // Map the search bar text to isSearching on the view model which toggles which set of gifs to show
+        search.map { $0.characters.count > 0 }
+            .bindTo(viewModel.isSearching)
+            .addDisposableTo(rx_disposeBag)
+    }
+
+    func setupTableView() {
         // Bind gifs to table view cells
         viewModel.gifs.asObservable()
             .bindTo(
@@ -43,37 +77,33 @@ private extension TrendingViewController {
                 curriedArgument: configureTableCell
             )
             .addDisposableTo(rx_disposeBag)
+    }
 
-        // Bind the results from the Giphy API to our viewmodel's gifs array
-        viewModel.getTrending()
-            .filterSuccessfulStatusCodes()
-            .mapObject(GiphyResponse)
-            .map { res in
-                return res.gifs
+    func setupPagination() {
+        // Trigger a new page load when near the bottom of the page
+        viewModel.loadNextSearchPage = tableView.rx_contentOffset
+            .filter { offset in
+                return (self.tableView(self.tableView, offsetIsNearBottom: offset) && self.viewModel.isSearching.value)
             }
-            .catchError(presentError)
-            .bindTo(viewModel.gifs)
-            .addDisposableTo(rx_disposeBag)
+            .flatMap { _ in return Observable.just() }
+
+        // Trigger a new page load when near the bottom of the page
+        viewModel.loadNextTrendingPage = tableView.rx_contentOffset
+            .filter { offset in
+                return (self.tableView(self.tableView, offsetIsNearBottom: offset) && !self.viewModel.isSearching.value)
+            }
+            .flatMap { _ in return Observable.just() }
+
+        // Hide the keyboard when we're scrolling
+        tableView.rx_contentOffset.subscribeNext { _ in
+            if self.searchBar.isFirstResponder() {
+                self.searchBar.resignFirstResponder()
+            }
+        }
+        .addDisposableTo(rx_disposeBag)
     }
 
     func configureTableCell(row: Int, gif: Gif, cell: GifTableViewCell) {
         cell.viewModel = GifViewModel(gif: gif)
-    }
-}
-
-// MARK: - Error handling
-private extension TrendingViewController {
-    func presentError(error: ErrorType) -> Observable<[Gif]> {
-        let desc = (error as NSError).localizedDescription
-
-        let alertController = UIAlertController(title: "Whoops", message: desc, preferredStyle: .Alert)
-
-        alertController.addAction(UIAlertAction(title: "OK", style: .Default) { [weak self] _ -> Void in
-            self?.dismissViewControllerAnimated(true, completion: nil)
-        })
-
-        self.presentViewController(alertController, animated: true, completion: nil)
-        
-        return .empty()
     }
 }

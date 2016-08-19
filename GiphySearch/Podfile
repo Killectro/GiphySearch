@@ -12,7 +12,6 @@ target 'GiphySearch' do
   pod 'NSObject+Rx'
   pod 'ObjectMapper'
   pod 'Moya-ObjectMapper/RxSwift'
-  pod 'SwiftGifOrigin'
   pod 'RxAlamofire'
   pod 'RxGesture'
   
