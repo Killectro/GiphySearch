@@ -44,12 +44,13 @@ private extension TrendingViewModel {
     }
 
     func setupSearchResults() {
-        // TODO: - Pagination
-        searchGifs = searchText.asObservable().flatMap { text -> Observable<[Gif]> in
+        searchGifs = searchText.asObservable().flatMap { [weak self] text -> Observable<[Gif]> in
+            guard let strongSelf = self else { return Observable.just([]) }
+
             if text.isEmpty {
                 return Observable.just([])
             } else {
-                return self.recursivelyGetResults(GiphyAPI.search(searchString: text, page: 0), loadedSoFar: [])
+                return strongSelf.recursivelyGetResults(GiphyAPI.search(searchString: text, page: 0), loadedSoFar: [])
             }
         }
     }
@@ -61,9 +62,12 @@ private extension TrendingViewModel {
     }
 }
 
+// MARK: - Networking
 private extension TrendingViewModel {
     func recursivelyGetResults(token: GiphyAPI, loadedSoFar: [Gif]) -> Observable<[Gif]> {
-        return loadPage(token).flatMap { gifs -> Observable<[Gif]> in
+        return loadPage(token).flatMap { [weak self] gifs -> Observable<[Gif]> in
+
+            guard let strongSelf = self else { return Observable.just([]) }
 
             let newGifs = loadedSoFar + gifs
 
@@ -76,18 +80,18 @@ private extension TrendingViewModel {
             case let .trending(page):
                 obs = obs + [
                     // Wait until we scroll to the bottom of the page
-                    Observable.never().takeUntil(self.loadNextTrendingPage),
+                    Observable.never().takeUntil(strongSelf.loadNextTrendingPage),
 
                     // Then load the next round of gifs
-                    self.recursivelyGetResults(GiphyAPI.trending(page: page + 1), loadedSoFar: newGifs)
+                    strongSelf.recursivelyGetResults(GiphyAPI.trending(page: page + 1), loadedSoFar: newGifs)
                 ]
             case let .search(str, page):
                 obs = obs + [
                     // Wait until we scroll to the bottom of the page
-                    Observable.never().takeUntil(self.loadNextSearchPage),
+                    Observable.never().takeUntil(strongSelf.loadNextSearchPage),
 
                     // Then load the next round of gifs
-                    self.recursivelyGetResults(GiphyAPI.search(searchString: str, page: page + 1), loadedSoFar: newGifs)
+                    strongSelf.recursivelyGetResults(GiphyAPI.search(searchString: str, page: page + 1), loadedSoFar: newGifs)
                 ]
             }
 
@@ -97,7 +101,6 @@ private extension TrendingViewModel {
 
     func loadPage(token: GiphyAPI) -> Observable<[Gif]> {
         return self.provider.request(token)
-            .debug()
             .filterSuccessfulStatusCodes()
             .retry(3)
             .mapObject(GiphyResponse)
