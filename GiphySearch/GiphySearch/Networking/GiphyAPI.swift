@@ -63,7 +63,6 @@ extension GiphyAPI: TargetType {
         // Always append API key
         params["api_key"] = "dc6zaTOxFJmzC"
 
-        print(params)
         return params
     }
 
