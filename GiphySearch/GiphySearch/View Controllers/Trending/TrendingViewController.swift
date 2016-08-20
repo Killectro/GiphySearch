@@ -22,6 +22,12 @@ final class TrendingViewController: UIViewController {
     // MARK: - Private Properties
     private let startLoadingOffset: CGFloat = 20.0
 
+    @IBOutlet private var noResultsView: UIView!
+    @IBOutlet var sadFaceImage: UIImageView! {
+        didSet {
+            sadFaceImage.tintColor = UIColor(red: 146/255, green: 146/255, blue: 146/255, alpha: 1.0)
+        }
+    }
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var searchBar: UISearchBar!
 
@@ -80,6 +86,11 @@ private extension TrendingViewController {
                 tableView.rx_itemsWithCellIdentifier("gifCell", cellType: GifTableViewCell.self),
                 curriedArgument: configureTableCell
             )
+            .addDisposableTo(rx_disposeBag)
+
+        viewModel.gifs
+            .map { gifs in gifs.count != 0 }
+            .bindTo(noResultsView.rx_hidden)
             .addDisposableTo(rx_disposeBag)
     }
 
