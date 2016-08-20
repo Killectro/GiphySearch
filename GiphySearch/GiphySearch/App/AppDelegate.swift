@@ -22,11 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let rootController = window?.rootViewController as? TrendingViewController
         rootController?.viewModel = TrendingViewModel(provider: provider)
 
-        // Set custom NSURLCache
-        let megabyte = 1024 * 1024
-        let URLCache = NSURLCache(memoryCapacity: 4 * megabyte , diskCapacity: 50 * megabyte, diskPath: nil)
-        NSURLCache.setSharedURLCache(URLCache)
-
         return true
     }
 

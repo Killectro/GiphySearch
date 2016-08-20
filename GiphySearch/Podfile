@@ -13,8 +13,9 @@ target 'GiphySearch' do
   pod 'ObjectMapper'
   pod 'Moya-ObjectMapper/RxSwift'
   pod 'RxAlamofire'
-  pod 'RxGesture'
-  
+  pod 'SDWebImage/GIF', git: 'https://github.com/rs/SDWebImage.git', branch: '4.x'
+  pod 'SnapKit', '0.19.1'
+
   target 'GiphySearchTests' do
     inherit! :search_paths
     # Pods for testing

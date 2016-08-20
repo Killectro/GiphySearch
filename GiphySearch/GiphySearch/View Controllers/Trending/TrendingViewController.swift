@@ -12,6 +12,7 @@ import RxSwift
 import NSObject_Rx
 import Moya
 import Moya_ObjectMapper
+import SDWebImage
 
 final class TrendingViewController: UIViewController {
 
@@ -23,6 +24,7 @@ final class TrendingViewController: UIViewController {
 
     @IBOutlet private var tableView: UITableView!
     @IBOutlet private var searchBar: UISearchBar!
+
     private var mostRecentlyDisplayedIndexPath: [NSIndexPath]!
 
     // MARK: - View Lifecycle
@@ -34,8 +36,7 @@ final class TrendingViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
 
-        // Make sure we drop our cache if we are getting low mem warnings from the system
-        NSURLCache.sharedURLCache().removeAllCachedResponses()
+        // SDWebImage automatically wipes mem cache when it receives a mem warning so do nothing here
     }
 
     // Determine whether or not we're near the bottom of the table and should paginate

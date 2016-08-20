@@ -8,48 +8,42 @@
 
 import UIKit
 import RxSwift
-import RxGesture
+import FLAnimatedImage
+import SDWebImage
+import SnapKit
 
 final class GifTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
     var viewModel: GifViewModel? {
-        didSet { setupBindings() }
+        didSet {
+            gifImageView.sd_setImageWithURL(viewModel?.gifUrl)
+        }
     }
 
     // MARK: - Private Properties
-    @IBOutlet private var gifImageView: UIImageView!
-
-    private var reusableDisposeBag = DisposeBag()
-
+    private lazy var gifImageView: FLAnimatedImageView = {
+        let view = FLAnimatedImageView()
+        view.contentMode = .ScaleAspectFit
+        return view
+    }()
 
     // MARK: - View lifecycle
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        contentView.addSubview(gifImageView)
+
+        gifImageView.snp_makeConstraints { make in
+            make.height.equalTo(200)
+            make.centerY.equalTo(contentView.snp_centerY)
+            make.trailing.equalTo(contentView.snp_trailingMargin)
+            make.leading.equalTo(contentView.snp_leadingMargin)
+        }
     }
 
     override func prepareForReuse() {
+        gifImageView.animatedImage = nil
         gifImageView.image = nil
-        reusableDisposeBag = DisposeBag()
-    }
-}
-
-// MARK: - Setup
-private extension GifTableViewCell {
-    func setupBindings() {
-        // Bind our image view to either the still or gif image
-        viewModel?.displayImage
-            .observeOn(MainScheduler.instance)
-            .bindTo(gifImageView.rx_image)
-            .addDisposableTo(reusableDisposeBag)
-
-        // Toggle on/off the gif playing when user taps the image view
-        gifImageView.rx_gesture(.Tap)
-            .subscribeNext { [weak self] _ in
-                guard let vm = self?.viewModel else { return }
-
-                vm.isPlaying.value = !vm.isPlaying.value
-        }
-        .addDisposableTo(reusableDisposeBag)
     }
 }
