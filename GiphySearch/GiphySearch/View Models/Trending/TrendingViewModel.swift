@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import Moya
 
-final class TrendingViewModel: NSObject {
+final class TrendingViewModel {
 
     // MARK: - Private properties
     private var trendingGifs: Observable<[Gif]>?
@@ -27,8 +27,6 @@ final class TrendingViewModel: NSObject {
     var loadNextSearchPage: Observable<Void>!
 
     init(provider: RxMoyaProvider<GiphyAPI>) {
-        super.init()
-
         self.provider = provider
 
         setupTrending()

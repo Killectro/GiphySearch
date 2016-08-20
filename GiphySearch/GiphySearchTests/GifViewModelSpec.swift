@@ -1,8 +1,8 @@
 //
-//  GifSpec.swift
+//  GifViewModelSpec.swift
 //  GiphySearch
 //
-//  Created by DJ Mitchell on 8/19/16.
+//  Created by DJ Mitchell on 8/20/16.
 //  Copyright © 2016 Killectro. All rights reserved.
 //
 
@@ -13,9 +13,8 @@ import ObjectMapper
 @testable
 import GiphySearch
 
-class GifSpec: QuickSpec {
+class GifViewModelSpec: QuickSpec {
     override func spec() {
-
         let id = "test_id"
         let gif_url = "http://google.com"
         let height: Float = 50.0
@@ -35,17 +34,16 @@ class GifSpec: QuickSpec {
         let map = Map(mappingType: .FromJSON, JSONDictionary: data)
 
         var gif: Gif!
+        var viewModel: GifViewModel!
+
         beforeEach {
             gif = Gif(map)
+            viewModel = GifViewModel(gif: gif)
         }
 
-        it("converts from JSON") {
-            expect(gif).toNot(beNil())
-            expect(gif!.id) == id
-            expect(gif!.url.absoluteString) == gif_url
-            expect(gif!.height) == height
-            expect(gif!.width) == width
-            expect(gif!.aspectRatio) == width / height
+        it("initializes from GIF") {
+            expect(viewModel).toNot(beNil())
+            expect(viewModel.gifUrl.absoluteString).to(equal(gif_url))
         }
     }
 }

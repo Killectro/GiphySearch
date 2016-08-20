@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D7BB2AC044D3347531B26C6 /* Pods_GiphySearchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D43E8AA8C096B5DF6AF0803 /* Pods_GiphySearchTests.framework */; };
 		8FBB957EAC088BBCDE63B44C /* Pods_GiphySearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD77228ABF9C43E2CCD1D166 /* Pods_GiphySearch.framework */; };
+		A47B83A21D68E0A400F99CEB /* GifViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B83A11D68E0A400F99CEB /* GifViewModelSpec.swift */; };
 		A48201021D64D56A0015C80A /* TrendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48201011D64D56A0015C80A /* TrendingViewModel.swift */; };
 		A48201051D64D83D0015C80A /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48201041D64D83D0015C80A /* Gif.swift */; };
 		A48201081D64E0110015C80A /* GiphyAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48201071D64E0110015C80A /* GiphyAPI.swift */; };
@@ -43,6 +44,7 @@
 		5BB0E7EA10389AB6F15C75B2 /* Pods-GiphySearchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearchTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySearchTests/Pods-GiphySearchTests.release.xcconfig"; sourceTree = "<group>"; };
 		7D43E8AA8C096B5DF6AF0803 /* Pods_GiphySearchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiphySearchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB99C8C628582F4ACA9AC45 /* Pods-GiphySearchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearchTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySearchTests/Pods-GiphySearchTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A47B83A11D68E0A400F99CEB /* GifViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifViewModelSpec.swift; sourceTree = "<group>"; };
 		A48201011D64D56A0015C80A /* TrendingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingViewModel.swift; sourceTree = "<group>"; };
 		A48201041D64D83D0015C80A /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
 		A48201071D64E0110015C80A /* GiphyAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GiphyAPI.swift; sourceTree = "<group>"; };
@@ -109,6 +111,14 @@
 				7D43E8AA8C096B5DF6AF0803 /* Pods_GiphySearchTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A47B83A01D68E08F00F99CEB /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A47B83A11D68E0A400F99CEB /* GifViewModelSpec.swift */,
+			);
+			name = ViewModels;
 			sourceTree = "<group>";
 		};
 		A48201001D64D5520015C80A /* Trending */ = {
@@ -191,6 +201,7 @@
 		A48AAB191D64C0FC00B7DB5A /* GiphySearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				A47B83A01D68E08F00F99CEB /* ViewModels */,
 				A4A80DD11D67B0B7000013F9 /* Models */,
 				A4A80DD21D67B0C4000013F9 /* GiphySearchTests-Bridging-Header.h */,
 				A48AAB1C1D64C0FC00B7DB5A /* Info.plist */,
@@ -474,6 +485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A47B83A21D68E0A400F99CEB /* GifViewModelSpec.swift in Sources */,
 				A4A80DD41D67B0C5000013F9 /* GifSpec.swift in Sources */,
 				A4B7FCD61D67B4570074110B /* GiphyResponseSpec.swift in Sources */,
 			);

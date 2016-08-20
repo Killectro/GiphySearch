@@ -20,7 +20,6 @@ class GiphyResponseSpec: QuickSpec {
         let gif_url = "http://google.com"
         let height: Float = 50.0
         let width: Float = 100.0
-        let still_url = "http://apple.com"
         let offset = 100
         let limit = 25
 
@@ -33,9 +32,6 @@ class GiphyResponseSpec: QuickSpec {
                             "url" : gif_url,
                             "height" : "\(height)",
                             "width" : "\(width)"
-                        ],
-                        "downsized_still" : [
-                            "url" : still_url
                         ]
                     ]
                 ]
@@ -64,9 +60,9 @@ class GiphyResponseSpec: QuickSpec {
 
             expect(gif.id) == id
             expect(gif.url.absoluteString) == gif_url
-            expect(gif.stillUrl.absoluteString) == still_url
             expect(gif.height) == height
             expect(gif.width) == width
+            expect(gif.aspectRatio) == width / height
         }
     }
 }

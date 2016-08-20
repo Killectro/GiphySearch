@@ -8,15 +8,14 @@
 
 import Foundation
 
-final class GifViewModel: NSObject {
-    var gif: Gif!
+final class GifViewModel {
+    private var gif: Gif!
 
     var gifUrl: NSURL {
         return gif.url
     }
 
     init(gif: Gif) {
-        super.init()
         self.gif = gif
     }
 }

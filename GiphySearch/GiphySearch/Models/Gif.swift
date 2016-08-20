@@ -12,9 +12,12 @@ import ObjectMapper
 struct Gif {
     var id: String!
     var url: NSURL!
-    var stillUrl: NSURL!
     var height: Float!
     var width: Float!
+
+    var aspectRatio: Float {
+        return width / height
+    }
 }
 
 // MARK: - Mappable
@@ -28,6 +31,5 @@ extension Gif: Mappable {
         url <- (map["images.downsized.url"], URLTransform())
         height <- (map["images.downsized.height"], StringFloatTransform())
         width <- (map["images.downsized.width"], StringFloatTransform())
-        stillUrl <- (map["images.downsized_still.url"], URLTransform())
     }
 }
