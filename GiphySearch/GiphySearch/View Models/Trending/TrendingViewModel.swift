@@ -99,12 +99,20 @@ private extension TrendingViewModel {
 
     func loadPage(token: GiphyAPI) -> Observable<[Gif]> {
         return self.provider.request(token)
+            .subscribeOn(MainScheduler.instance)
+            .doOn(onNext: { res in
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            })
             .filterSuccessfulStatusCodes()
             .retry(3)
             .mapObject(GiphyResponse)
             .map { res in
                 return res.gifs!
             }
+            .subscribeOn(MainScheduler.instance)
+            .doOn(onNext: { res in
+                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            })
             .catchError { err in
                 print(err)
                 return Observable.empty()
