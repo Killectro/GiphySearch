@@ -67,7 +67,7 @@ extension GiphyAPI: TargetType {
     }
 
     var sampleData: NSData {
-        // TODO: - Stubbed responses for testing
+        // Not using stubbed responses right now
         return NSData()
     }
 }
