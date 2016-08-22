@@ -118,7 +118,7 @@
 			children = (
 				A47B83A11D68E0A400F99CEB /* GifViewModelSpec.swift */,
 			);
-			name = ViewModels;
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		A48201001D64D5520015C80A /* Trending */ = {
@@ -167,9 +167,9 @@
 		A48AAAF91D64C0FC00B7DB5A = {
 			isa = PBXGroup;
 			children = (
+				6294DA72DC0DF396FC35EC2D /* Frameworks */,
 				A48AAB041D64C0FC00B7DB5A /* GiphySearch */,
 				A48AAB191D64C0FC00B7DB5A /* GiphySearchTests */,
-				6294DA72DC0DF396FC35EC2D /* Frameworks */,
 				270BF2B26714CD141ACC62A7 /* Pods */,
 				A48AAB031D64C0FC00B7DB5A /* Products */,
 			);
@@ -201,8 +201,8 @@
 		A48AAB191D64C0FC00B7DB5A /* GiphySearchTests */ = {
 			isa = PBXGroup;
 			children = (
-				A47B83A01D68E08F00F99CEB /* ViewModels */,
 				A4A80DD11D67B0B7000013F9 /* Models */,
+				A47B83A01D68E08F00F99CEB /* ViewModels */,
 				A4A80DD21D67B0C4000013F9 /* GiphySearchTests-Bridging-Header.h */,
 				A48AAB1C1D64C0FC00B7DB5A /* Info.plist */,
 			);
@@ -266,7 +266,7 @@
 				A4A80DD31D67B0C5000013F9 /* GifSpec.swift */,
 				A4B7FCD51D67B4570074110B /* GiphyResponseSpec.swift */,
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
