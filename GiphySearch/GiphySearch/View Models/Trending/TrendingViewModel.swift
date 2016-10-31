@@ -14,7 +14,7 @@ protocol TrendingViewModelType {
     var searchText: Variable<String> { get }
     var isSearching: Variable<Bool> { get }
 
-    var gifs: Observable<[Gif]>! { get set }
+    var gifs: Observable<[GifViewModelType]>! { get set }
 
     func updateObservables(searchPaginate: Observable<Void>, trendingPaginate: Observable<Void>)
 }
@@ -25,7 +25,7 @@ final class TrendingViewModel: TrendingViewModelType {
     let searchText = Variable<String>("")
     let isSearching = Variable<Bool>(false)
 
-    var gifs: Observable<[Gif]>!
+    var gifs: Observable<[GifViewModelType]>!
 
     // MARK: - Private properties
     fileprivate var networkModel: TrendingNetworkModelType!
@@ -63,6 +63,8 @@ private extension TrendingViewModel {
 
         gifs = Observable.combineLatest(trendingGifs, searchGifs, isSearching.asObservable()) { (trending, searched, isSearching) -> [Gif] in
             return isSearching ? searched : trending
-        }.shareReplay(1)
+        }
+        .map { $0.map(GifViewModel.init) }
+        .shareReplay(1)
     }
 }

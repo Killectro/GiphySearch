@@ -8,7 +8,11 @@
 
 import Foundation
 
-final class GifViewModel {
+protocol GifViewModelType {
+    var gifUrl: URL { get }
+}
+
+final class GifViewModel: GifViewModelType {
     private var gif: Gif!
 
     var gifUrl: URL {

@@ -14,7 +14,7 @@ import SnapKit
 final class GifTableViewCell: UITableViewCell {
 
     // MARK: - Public Properties
-    var viewModel: GifViewModel? {
+    var viewModel: GifViewModelType? {
         didSet {
             gifImageView.kf.setImage(with: viewModel?.gifUrl)
         }
