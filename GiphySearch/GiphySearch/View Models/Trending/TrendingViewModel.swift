@@ -12,12 +12,6 @@ import Moya
 
 final class TrendingViewModel {
 
-    // MARK: - Private properties
-    fileprivate var trendingGifs: Observable<[Gif]>?
-    fileprivate var searchGifs: Observable<[Gif]>?
-    fileprivate var provider: RxMoyaProvider<GiphyAPI>!
-
-
     // MARK: - Public properties
     var searchText = Variable<String>("")
     var isSearching = Variable<Bool>(false)
@@ -26,23 +20,24 @@ final class TrendingViewModel {
     var loadNextTrendingPage: Observable<Void>!
     var loadNextSearchPage: Observable<Void>!
 
+    // MARK: - Private properties
+    fileprivate var provider: RxMoyaProvider<GiphyAPI>!
+
+    // MARK: - Initialization
     init(provider: RxMoyaProvider<GiphyAPI>) {
         self.provider = provider
 
-        setupTrending()
-        setupSearchResults()
         setupGifs()
     }
 }
 
 // MARK: - Setup
 private extension TrendingViewModel {
-    func setupTrending() {
-        trendingGifs = recursivelyGetResults(.trending(page: 0), loadedSoFar: [])
-    }
 
-    func setupSearchResults() {
-        searchGifs = searchText.asObservable().flatMapLatest { [weak self] text -> Observable<[Gif]> in
+    func setupGifs() {
+        let trendingGifs = recursivelyGetResults(.trending(page: 0), loadedSoFar: [])
+
+        let searchGifs = searchText.asObservable().flatMapLatest { [weak self] text -> Observable<[Gif]> in
             guard let strongSelf = self else { return Observable.just([]) }
 
             if text.isEmpty {
@@ -51,12 +46,10 @@ private extension TrendingViewModel {
                 return strongSelf.recursivelyGetResults(GiphyAPI.search(searchString: text, page: 0), loadedSoFar: [])
             }
         }
-    }
 
-    func setupGifs() {
-        gifs = Observable.combineLatest(trendingGifs!.asObservable(), searchGifs!.asObservable(), isSearching.asObservable()) { (trending, searched, isSearching) -> [Gif] in
+        gifs = Observable.combineLatest(trendingGifs, searchGifs, isSearching.asObservable()) { (trending, searched, isSearching) -> [Gif] in
             return isSearching ? searched : trending
-        }
+        }.shareReplay(1)
     }
 }
 

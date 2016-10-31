@@ -78,7 +78,7 @@ private extension TrendingViewController {
 
     func setupTableView() {
         // Bind gifs to table view cells
-        viewModel.gifs.asObservable()
+        viewModel.gifs
             .bindTo(
                 tableView.rx.items(cellIdentifier: "gifCell", cellType: GifTableViewCell.self),
                 curriedArgument: configureTableCell
