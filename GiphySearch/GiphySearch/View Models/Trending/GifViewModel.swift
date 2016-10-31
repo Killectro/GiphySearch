@@ -11,7 +11,7 @@ import Foundation
 final class GifViewModel {
     private var gif: Gif!
 
-    var gifUrl: NSURL {
+    var gifUrl: URL {
         return gif.url
     }
 

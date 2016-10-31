@@ -1,6 +1,6 @@
 PODS:
   - Alamofire (4.0.1)
-  - FLAnimatedImage (1.0.12)
+  - Kingfisher (3.1.4)
   - Moya (8.0.0-beta.3):
     - Moya/Core (= 8.0.0-beta.3)
   - Moya-ObjectMapper/Core (2.0.1):
@@ -29,37 +29,23 @@ PODS:
   - RxCocoa (3.0.0):
     - RxSwift (~> 3.0)
   - RxSwift (3.0.0)
-  - SDWebImage/Core (4.0.0-beta)
-  - SDWebImage/GIF (4.0.0-beta):
-    - FLAnimatedImage (~> 1.0)
-    - SDWebImage/Core
   - SnapKit (3.0.2)
 
 DEPENDENCIES:
+  - Kingfisher (= 3.1.4)
   - Moya-ObjectMapper/RxSwift
-  - Moya/RxSwift
+  - Moya/RxSwift (= 8.0.0-beta.3)
   - NSObject+Rx (= 2.0.0)
   - ObjectMapper
   - Quick (= 0.10.0)
   - RxAlamofire
   - RxCocoa (~> 3.0.0)
   - RxSwift (~> 3.0.0)
-  - SDWebImage/GIF (from `https://github.com/rs/SDWebImage.git`, branch `4.x`)
   - SnapKit (= 3.0.2)
-
-EXTERNAL SOURCES:
-  SDWebImage:
-    :branch: 4.x
-    :git: https://github.com/rs/SDWebImage.git
-
-CHECKOUT OPTIONS:
-  SDWebImage:
-    :commit: d6fa29c88a9d4febc2c9d8fa49ce23c68334d0aa
-    :git: https://github.com/rs/SDWebImage.git
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
-  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
   Moya: f83c7f81eaa28cb0151549dfcf1f3fda4440bb50
   Moya-ObjectMapper: 816d23fdcfb4dcc14a9bbb6f174e8b5d530a881b
   NSObject+Rx: 2a9cd801d9c847e6d2486cbad8d7701b67834e70
@@ -69,9 +55,8 @@ SPEC CHECKSUMS:
   RxAlamofire: 0b1fa48f545fffe7f7a28af2086bcaa3b5946cc9
   RxCocoa: 0a2f3ae381cf16f4021a4cee7a4420f83058a965
   RxSwift: a930cd662f5b4a7ca9dc3518585dba91dadf497c
-  SDWebImage: 835b541a1946d371dea2ab41da591dd8d1f93865
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
 
-PODFILE CHECKSUM: 9a174195a768e818ad57130d0829344fb1ca2427
+PODFILE CHECKSUM: d3f9db817c30fe86b2bceef73e1087ee96472553
 
 COCOAPODS: 1.1.1

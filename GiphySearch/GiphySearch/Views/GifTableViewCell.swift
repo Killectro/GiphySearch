@@ -8,8 +8,7 @@
 
 import UIKit
 import RxSwift
-import FLAnimatedImage
-import SDWebImage
+import Kingfisher
 import SnapKit
 
 final class GifTableViewCell: UITableViewCell {
@@ -17,14 +16,14 @@ final class GifTableViewCell: UITableViewCell {
     // MARK: - Public Properties
     var viewModel: GifViewModel? {
         didSet {
-            gifImageView.sd_setImageWithURL(viewModel?.gifUrl)
+            gifImageView.kf.setImage(with: viewModel?.gifUrl)
         }
     }
 
     // MARK: - Private Properties
-    private lazy var gifImageView: FLAnimatedImageView = {
-        let view = FLAnimatedImageView()
-        view.contentMode = .ScaleAspectFit
+    fileprivate lazy var gifImageView: AnimatedImageView = {
+        let view = AnimatedImageView()
+        view.contentMode = .scaleAspectFit
         return view
     }()
 
@@ -34,16 +33,15 @@ final class GifTableViewCell: UITableViewCell {
 
         contentView.addSubview(gifImageView)
 
-        gifImageView.snp_makeConstraints { make in
+        gifImageView.snp.makeConstraints { make in
             make.height.equalTo(200)
-            make.centerY.equalTo(contentView.snp_centerY)
-            make.trailing.equalTo(contentView.snp_trailingMargin)
-            make.leading.equalTo(contentView.snp_leadingMargin)
+            make.centerY.equalTo(contentView.snp.centerY)
+            make.trailing.equalTo(contentView.snp.trailingMargin)
+            make.leading.equalTo(contentView.snp.leadingMargin)
         }
     }
 
     override func prepareForReuse() {
-        gifImageView.animatedImage = nil
         gifImageView.image = nil
     }
 }

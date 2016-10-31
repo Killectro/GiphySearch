@@ -11,7 +11,7 @@ import ObjectMapper
 
 struct Gif {
     var id: String!
-    var url: NSURL!
+    var url: URL!
     var height: Float!
     var width: Float!
 
@@ -22,8 +22,8 @@ struct Gif {
 
 // MARK: - Mappable
 extension Gif: Mappable {
-    init?(_ map: Map) {
-        mapping(map)
+    init?(map: Map) {
+        mapping(map: map)
     }
     
     mutating func mapping(map: Map) {

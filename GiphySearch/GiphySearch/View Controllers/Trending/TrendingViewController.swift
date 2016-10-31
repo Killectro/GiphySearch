@@ -12,7 +12,6 @@ import RxSwift
 import NSObject_Rx
 import Moya
 import Moya_ObjectMapper
-import SDWebImage
 
 final class TrendingViewController: UIViewController {
 
@@ -20,18 +19,16 @@ final class TrendingViewController: UIViewController {
     var viewModel: TrendingViewModel!
     
     // MARK: - Private Properties
-    private let startLoadingOffset: CGFloat = 20.0
+    fileprivate let startLoadingOffset: CGFloat = 20.0
 
-    @IBOutlet private var noResultsView: UIView!
+    @IBOutlet fileprivate var noResultsView: UIView!
     @IBOutlet var sadFaceImage: UIImageView! {
         didSet {
             sadFaceImage.tintColor = UIColor(red: 146/255, green: 146/255, blue: 146/255, alpha: 1.0)
         }
     }
-    @IBOutlet private var tableView: UITableView!
-    @IBOutlet private var searchBar: UISearchBar!
-
-    private var mostRecentlyDisplayedIndexPath: [NSIndexPath]!
+    @IBOutlet fileprivate var tableView: UITableView!
+    @IBOutlet fileprivate var searchBar: UISearchBar!
 
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -46,7 +43,7 @@ final class TrendingViewController: UIViewController {
     }
 
     // Determine whether or not we're near the bottom of the table and should paginate
-    func tableView(tableView: UITableView, offsetIsNearBottom contentOffset: CGPoint) -> Bool {
+    func tableView(_ tableView: UITableView, offsetIsNearBottom contentOffset: CGPoint) -> Bool {
         let isAtBottom = contentOffset.y + tableView.frame.height + startLoadingOffset > tableView.contentSize.height
         let hasContent = tableView.contentSize.height > tableView.frame.height
 
@@ -63,7 +60,7 @@ private extension TrendingViewController {
     }
 
     func setupSearch() {
-        let search = searchBar.rx_text
+        let search = searchBar.rx.text.orEmpty
             .throttle(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .shareReplay(1)
@@ -83,20 +80,20 @@ private extension TrendingViewController {
         // Bind gifs to table view cells
         viewModel.gifs.asObservable()
             .bindTo(
-                tableView.rx_itemsWithCellIdentifier("gifCell", cellType: GifTableViewCell.self),
+                tableView.rx.items(cellIdentifier: "gifCell", cellType: GifTableViewCell.self),
                 curriedArgument: configureTableCell
             )
             .addDisposableTo(rx_disposeBag)
 
         viewModel.gifs
             .map { gifs in gifs.count != 0 }
-            .bindTo(noResultsView.rx_hidden)
+            .bindTo(noResultsView.rx.isHidden)
             .addDisposableTo(rx_disposeBag)
     }
 
     func setupPagination() {
         // Trigger a new page load when near the bottom of the page
-        viewModel.loadNextSearchPage = tableView.rx_contentOffset
+        viewModel.loadNextSearchPage = tableView.rx.contentOffset
             .filter { [weak self] offset in
                 guard let strongSelf = self else { return false }
                 return (strongSelf.tableView(strongSelf.tableView, offsetIsNearBottom: offset) && strongSelf.viewModel.isSearching.value)
@@ -104,7 +101,7 @@ private extension TrendingViewController {
             .flatMap { _ in return Observable.just() }
 
         // Trigger a new page load when near the bottom of the page
-        viewModel.loadNextTrendingPage = tableView.rx_contentOffset
+        viewModel.loadNextTrendingPage = tableView.rx.contentOffset
             .filter { [weak self] offset in
                 guard let strongSelf = self else { return false }
                 return (strongSelf.tableView(strongSelf.tableView, offsetIsNearBottom: offset) && !strongSelf.viewModel.isSearching.value)
@@ -112,17 +109,17 @@ private extension TrendingViewController {
             .flatMap { _ in return Observable.just() }
 
         // Hide the keyboard when we're scrolling
-        tableView.rx_contentOffset.subscribeNext { [weak self] _ in
+        tableView.rx.contentOffset.subscribe(onNext: { [weak self] _ in
             guard let strongSelf = self else { return }
 
-            if strongSelf.searchBar.isFirstResponder() {
+            if strongSelf.searchBar.isFirstResponder {
                 strongSelf.searchBar.resignFirstResponder()
             }
-        }
+        })
         .addDisposableTo(rx_disposeBag)
     }
 
-    func configureTableCell(row: Int, gif: Gif, cell: GifTableViewCell) {
+    func configureTableCell(_ row: Int, gif: Gif, cell: GifTableViewCell) {
         cell.viewModel = GifViewModel(gif: gif)
     }
 }

@@ -13,14 +13,14 @@ struct StringFloatTransform: TransformType {
     typealias Object = Float
     typealias JSON = String
 
-    func transformFromJSON(value: AnyObject?) -> Float? {
-        if let s = value as? String, v = Float(s) {
+    func transformFromJSON(_ value: Any?) -> Float? {
+        if let s = value as? String, let v = Float(s) {
             return v
         }
         return nil
     }
 
-    func transformToJSON(value: Float?) -> String? {
-        return String(value)
+    func transformToJSON(_ value: Float?) -> String? {
+        return String(describing: value)
     }
 }

@@ -16,7 +16,7 @@ enum GiphyAPI {
 }
 
 extension GiphyAPI: TargetType {
-    var baseURL: NSURL { return NSURL(string: "http://api.giphy.com/v1/gifs/")! }
+    var baseURL: URL { return URL(string: "http://api.giphy.com/v1/gifs/")! }
     var path: String {
         switch self {
         case .search:
@@ -29,11 +29,11 @@ extension GiphyAPI: TargetType {
     var method: Moya.Method {
         switch self {
         case .search, .trending:
-            return .GET
+            return .get
         }
     }
 
-    var parameters: [String : AnyObject]? {
+    var parameters: [String : Any]? {
         // Hard code the number of items per page.
         // This is the same as Giphy's default but we need it to calculate our offset,
         // so we will just pass it regardless
@@ -46,28 +46,32 @@ extension GiphyAPI: TargetType {
             let offset = itemsPerPage * page
 
             params = [
-                "q" : searchString.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "+"),
-                "rating" : "r", // Keep it dirty, default to R rated
-                "limit": itemsPerPage,
-                "offset": offset
+                "q" : searchString.lowercased().replacingOccurrences(of: " ", with: "+") as AnyObject,
+                "rating" : "r" as AnyObject, // Keep it dirty, default to R rated
+                "limit": itemsPerPage as AnyObject,
+                "offset": offset as AnyObject
             ]
         case .trending(let page):
             let offset = itemsPerPage * page
 
             params = [
-                "limit": itemsPerPage,
-                "offset": offset
+                "limit": itemsPerPage as AnyObject,
+                "offset": offset as AnyObject
             ]
         }
 
         // Always append API key
-        params["api_key"] = "dc6zaTOxFJmzC"
+        params["api_key"] = "dc6zaTOxFJmzC" as AnyObject?
 
         return params
     }
 
-    var sampleData: NSData {
+    var task: Task {
+        return .request
+    }
+
+    var sampleData: Data {
         // Not using stubbed responses right now
-        return NSData()
+        return Data()
     }
 }

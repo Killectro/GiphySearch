@@ -13,9 +13,9 @@ import Moya
 final class TrendingViewModel {
 
     // MARK: - Private properties
-    private var trendingGifs: Observable<[Gif]>?
-    private var searchGifs: Observable<[Gif]>?
-    private var provider: RxMoyaProvider<GiphyAPI>!
+    fileprivate var trendingGifs: Observable<[Gif]>?
+    fileprivate var searchGifs: Observable<[Gif]>?
+    fileprivate var provider: RxMoyaProvider<GiphyAPI>!
 
 
     // MARK: - Public properties
@@ -62,7 +62,7 @@ private extension TrendingViewModel {
 
 // MARK: - Networking
 private extension TrendingViewModel {
-    func recursivelyGetResults(token: GiphyAPI, loadedSoFar: [Gif]) -> Observable<[Gif]> {
+    func recursivelyGetResults(_ token: GiphyAPI, loadedSoFar: [Gif]) -> Observable<[Gif]> {
         return loadPage(token).flatMap { [weak self] gifs -> Observable<[Gif]> in
 
             guard let strongSelf = self else { return Observable.just([]) }
@@ -93,28 +93,28 @@ private extension TrendingViewModel {
                 ]
             }
 
-            return obs.concat()
+            return Observable.concat(obs)
         }
     }
 
-    func loadPage(token: GiphyAPI) -> Observable<[Gif]> {
+    func loadPage(_ token: GiphyAPI) -> Observable<[Gif]> {
         return self.provider.request(token)
-            .subscribeOn(MainScheduler.instance)
-            .doOn(onNext: { res in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { res in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
             })
+            .observeOn(SerialDispatchQueueScheduler(qos: .background))
             .filterSuccessfulStatusCodes()
             .retry(3)
-            .mapObject(GiphyResponse)
+            .mapObject(GiphyResponse.self)
             .map { res in
                 return res.gifs!
             }
-            .subscribeOn(MainScheduler.instance)
-            .doOn(onNext: { res in
-                UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { res in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
             })
             .catchError { err in
-                print(err)
                 return Observable.empty()
             }
     }

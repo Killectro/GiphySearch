@@ -20,8 +20,8 @@ struct GiphyResponse {
 
 // MARK: - Mappable
 extension GiphyResponse: Mappable {
-    init?(_ map: Map) {
-        mapping(map)
+    init?(map: Map) {
+        mapping(map: map)
     }
 
     mutating func mapping(map: Map) {

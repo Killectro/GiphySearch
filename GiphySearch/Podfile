@@ -8,12 +8,12 @@ target 'GiphySearch' do
   # Pods for GiphySearch
   pod 'RxSwift',    '~> 3.0.0'
   pod 'RxCocoa',    '~> 3.0.0'
-  pod 'Moya/RxSwift'
+  pod 'Moya/RxSwift', '= 8.0.0-beta.3'
   pod 'NSObject+Rx', '2.0.0'
   pod 'ObjectMapper'
   pod 'Moya-ObjectMapper/RxSwift'
   pod 'RxAlamofire'
-  pod 'SDWebImage/GIF', git: 'https://github.com/rs/SDWebImage.git', branch: '4.x'
+  pod 'Kingfisher', '3.1.4'
   pod 'SnapKit', '3.0.2'
 
   target 'GiphySearchTests' do

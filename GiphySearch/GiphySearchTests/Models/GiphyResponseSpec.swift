@@ -42,7 +42,7 @@ class GiphyResponseSpec: QuickSpec {
             ]
         ]
         
-        let map = Map(mappingType: .FromJSON, JSONDictionary: data)
+        let map = Map(mappingType: .FromJSON, JSON: data)
 
         var response: GiphyResponse!
         beforeEach {
