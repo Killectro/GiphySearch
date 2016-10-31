@@ -93,7 +93,7 @@ private extension TrendingViewController {
 
     func setupPagination() {
         // Trigger a new page load when near the bottom of the page
-        viewModel.loadNextSearchPage = tableView.rx.contentOffset
+        let loadNextSearchPage = tableView.rx.contentOffset
             .filter { [weak self] offset in
                 guard let `self` = self else { return false }
                 return (self.tableView(self.tableView, offsetIsNearBottom: offset) && self.viewModel.isSearching.value)
@@ -101,12 +101,14 @@ private extension TrendingViewController {
             .flatMap { _ in return Observable.just() }
 
         // Trigger a new page load when near the bottom of the page
-        viewModel.loadNextTrendingPage = tableView.rx.contentOffset
+        let loadNextTrendingPage = tableView.rx.contentOffset
             .filter { [weak self] offset in
                 guard let `self` = self else { return false }
                 return (self.tableView(self.tableView, offsetIsNearBottom: offset) && !self.viewModel.isSearching.value)
             }
             .flatMap { _ in return Observable.just() }
+
+        viewModel.updateObservables(searchPaginate: loadNextSearchPage, trendingPaginate: loadNextTrendingPage)
 
         // Hide the keyboard when we're scrolling
         tableView.rx.contentOffset.subscribe(onNext: { [weak self] _ in
