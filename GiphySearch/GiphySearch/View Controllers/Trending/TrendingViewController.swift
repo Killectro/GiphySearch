@@ -16,8 +16,8 @@ import Moya_ObjectMapper
 final class TrendingViewController: UIViewController {
 
     // MARK: - Public Properties
-    var viewModel: TrendingViewModel!
-    
+    var viewModel: TrendingViewModelType!
+
     // MARK: - Private Properties
     fileprivate let startLoadingOffset: CGFloat = 20.0
 
@@ -95,25 +95,25 @@ private extension TrendingViewController {
         // Trigger a new page load when near the bottom of the page
         viewModel.loadNextSearchPage = tableView.rx.contentOffset
             .filter { [weak self] offset in
-                guard let strongSelf = self else { return false }
-                return (strongSelf.tableView(strongSelf.tableView, offsetIsNearBottom: offset) && strongSelf.viewModel.isSearching.value)
+                guard let `self` = self else { return false }
+                return (self.tableView(self.tableView, offsetIsNearBottom: offset) && self.viewModel.isSearching.value)
             }
             .flatMap { _ in return Observable.just() }
 
         // Trigger a new page load when near the bottom of the page
         viewModel.loadNextTrendingPage = tableView.rx.contentOffset
             .filter { [weak self] offset in
-                guard let strongSelf = self else { return false }
-                return (strongSelf.tableView(strongSelf.tableView, offsetIsNearBottom: offset) && !strongSelf.viewModel.isSearching.value)
+                guard let `self` = self else { return false }
+                return (self.tableView(self.tableView, offsetIsNearBottom: offset) && !self.viewModel.isSearching.value)
             }
             .flatMap { _ in return Observable.just() }
 
         // Hide the keyboard when we're scrolling
         tableView.rx.contentOffset.subscribe(onNext: { [weak self] _ in
-            guard let strongSelf = self else { return }
+            guard let `self` = self else { return }
 
-            if strongSelf.searchBar.isFirstResponder {
-                strongSelf.searchBar.resignFirstResponder()
+            if self.searchBar.isFirstResponder {
+                self.searchBar.resignFirstResponder()
             }
         })
         .addDisposableTo(rx_disposeBag)

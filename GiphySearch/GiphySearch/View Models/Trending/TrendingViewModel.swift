@@ -10,11 +10,20 @@ import UIKit
 import RxSwift
 import Moya
 
-final class TrendingViewModel {
+protocol TrendingViewModelType {
+    var searchText: Variable<String> { get }
+    var isSearching: Variable<Bool> { get }
+
+    var gifs: Observable<[Gif]>! { get set }
+    var loadNextTrendingPage: Observable<Void>! { get set }
+    var loadNextSearchPage: Observable<Void>! { get set }
+}
+
+final class TrendingViewModel: TrendingViewModelType {
 
     // MARK: - Public properties
-    var searchText = Variable<String>("")
-    var isSearching = Variable<Bool>(false)
+    let searchText = Variable<String>("")
+    let isSearching = Variable<Bool>(false)
 
     var gifs: Observable<[Gif]>!
     var loadNextTrendingPage: Observable<Void>!
@@ -38,12 +47,12 @@ private extension TrendingViewModel {
         let trendingGifs = recursivelyGetResults(.trending(page: 0), loadedSoFar: [])
 
         let searchGifs = searchText.asObservable().flatMapLatest { [weak self] text -> Observable<[Gif]> in
-            guard let strongSelf = self else { return Observable.just([]) }
+            guard let `self` = self else { return Observable.just([]) }
 
             if text.isEmpty {
                 return Observable.just([])
             } else {
-                return strongSelf.recursivelyGetResults(GiphyAPI.search(searchString: text, page: 0), loadedSoFar: [])
+                return self.recursivelyGetResults(GiphyAPI.search(searchString: text, page: 0), loadedSoFar: [])
             }
         }
 
@@ -58,7 +67,7 @@ private extension TrendingViewModel {
     func recursivelyGetResults(_ token: GiphyAPI, loadedSoFar: [Gif]) -> Observable<[Gif]> {
         return loadPage(token).flatMap { [weak self] gifs -> Observable<[Gif]> in
 
-            guard let strongSelf = self else { return Observable.just([]) }
+            guard let `self` = self else { return Observable.just([]) }
 
             let newGifs = loadedSoFar + gifs
 
@@ -71,18 +80,18 @@ private extension TrendingViewModel {
             case let .trending(page):
                 obs = obs + [
                     // Wait until we scroll to the bottom of the page
-                    Observable.never().takeUntil(strongSelf.loadNextTrendingPage),
+                    Observable.never().takeUntil(self.loadNextTrendingPage),
 
                     // Then load the next round of gifs
-                    strongSelf.recursivelyGetResults(GiphyAPI.trending(page: page + 1), loadedSoFar: newGifs)
+                    self.recursivelyGetResults(GiphyAPI.trending(page: page + 1), loadedSoFar: newGifs)
                 ]
             case let .search(str, page):
                 obs = obs + [
                     // Wait until we scroll to the bottom of the page
-                    Observable.never().takeUntil(strongSelf.loadNextSearchPage),
+                    Observable.never().takeUntil(self.loadNextSearchPage),
 
                     // Then load the next round of gifs
-                    strongSelf.recursivelyGetResults(GiphyAPI.search(searchString: str, page: page + 1), loadedSoFar: newGifs)
+                    self.recursivelyGetResults(GiphyAPI.search(searchString: str, page: page + 1), loadedSoFar: newGifs)
                 ]
             }
 
@@ -93,7 +102,7 @@ private extension TrendingViewModel {
     func loadPage(_ token: GiphyAPI) -> Observable<[Gif]> {
         return self.provider.request(token)
             .observeOn(MainScheduler.instance)
-            .do(onNext: { res in
+            .do(onNext: { _ in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = true
             })
             .observeOn(SerialDispatchQueueScheduler(qos: .background))
@@ -104,10 +113,10 @@ private extension TrendingViewModel {
                 return res.gifs!
             }
             .observeOn(MainScheduler.instance)
-            .do(onNext: { res in
+            .do(onNext: { _ in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
             })
-            .catchError { err in
+            .catchError { _ in
                 return Observable.empty()
             }
     }
