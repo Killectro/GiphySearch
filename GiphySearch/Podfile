@@ -6,22 +6,21 @@ target 'GiphySearch' do
   use_frameworks!
 
   # Pods for GiphySearch
-  pod 'RxSwift',    '~> 2.0'
-  pod 'RxCocoa',    '~> 2.0'
+  pod 'RxSwift',    '~> 3.0.0'
+  pod 'RxCocoa',    '~> 3.0.0'
   pod 'Moya/RxSwift'
-  pod 'NSObject+Rx'
+  pod 'NSObject+Rx', '2.0.0'
   pod 'ObjectMapper'
   pod 'Moya-ObjectMapper/RxSwift'
   pod 'RxAlamofire'
   pod 'SDWebImage/GIF', git: 'https://github.com/rs/SDWebImage.git', branch: '4.x'
-  pod 'SnapKit', '0.19.1'
+  pod 'SnapKit', '3.0.2'
 
   target 'GiphySearchTests' do
     inherit! :search_paths
     # Pods for testing
 
-    pod 'Quick', '0.9.1'
-    pod 'Nimble', '3.2.0'
+    pod 'Quick', '0.10.0'
   end
 
 end
