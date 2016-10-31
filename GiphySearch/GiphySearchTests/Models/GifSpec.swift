@@ -21,7 +21,7 @@ class GifSpec: QuickSpec {
         let height: Float = 50.0
         let width: Float = 100.0
 
-        let data: NSDictionary = [
+        let data: [String: Any] = [
             "id" : id,
             "images" : [
                 "downsized" : [
@@ -32,11 +32,11 @@ class GifSpec: QuickSpec {
             ]
         ]
 
-        let map = Map(mappingType: .FromJSON, JSON: data)
+        let map = Map(mappingType: .fromJSON, JSON: data)
 
         var gif: Gif!
         beforeEach {
-            gif = Gif(map)
+            gif = Gif(map: map)
         }
 
         it("converts from JSON") {

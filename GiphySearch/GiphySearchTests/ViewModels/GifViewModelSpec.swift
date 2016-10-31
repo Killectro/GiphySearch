@@ -20,7 +20,7 @@ class GifViewModelSpec: QuickSpec {
         let height: Float = 50.0
         let width: Float = 100.0
 
-        let data: NSDictionary = [
+        let data: [String : Any] = [
             "id" : id,
             "images" : [
                 "downsized" : [
@@ -31,13 +31,13 @@ class GifViewModelSpec: QuickSpec {
             ]
         ]
 
-        let map = Map(mappingType: .FromJSON, JSON: data)
+        let map = Map(mappingType: .fromJSON, JSON: data)
 
         var gif: Gif!
         var viewModel: GifViewModel!
 
         beforeEach {
-            gif = Gif(map)
+            gif = Gif(map: map)
             viewModel = GifViewModel(gif: gif)
         }
 

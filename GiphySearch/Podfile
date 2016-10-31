@@ -21,6 +21,7 @@ target 'GiphySearch' do
     # Pods for testing
 
     pod 'Quick', '0.10.0'
+    pod 'Nimble', '5.1.0'
   end
 
 end

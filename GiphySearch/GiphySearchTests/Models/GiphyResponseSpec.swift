@@ -23,7 +23,7 @@ class GiphyResponseSpec: QuickSpec {
         let offset = 100
         let limit = 25
 
-        let data: [String: AnyObject] = [
+        let data: [String: Any] = [
             "data" : [
                 [
                     "id" : id,
@@ -42,11 +42,11 @@ class GiphyResponseSpec: QuickSpec {
             ]
         ]
         
-        let map = Map(mappingType: .FromJSON, JSON: data)
+        let map = Map(mappingType: .fromJSON, JSON: data)
 
         var response: GiphyResponse!
         beforeEach {
-            response = GiphyResponse(map)
+            response = GiphyResponse(map: map)
         }
 
         it("converts from JSON") {
