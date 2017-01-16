@@ -39,29 +39,29 @@ extension GiphyAPI: TargetType {
         // so we will just pass it regardless
         let itemsPerPage = 25
 
-        var params = [String:AnyObject]()
+        var params = [String:Any]()
         switch self {
         case let .search(searchString, page):
 
             let offset = itemsPerPage * page
 
             params = [
-                "q" : searchString.lowercased().replacingOccurrences(of: " ", with: "+") as AnyObject,
-                "rating" : "r" as AnyObject, // Keep it dirty, default to R rated
-                "limit": itemsPerPage as AnyObject,
-                "offset": offset as AnyObject
+                "q" : searchString.lowercased().replacingOccurrences(of: " ", with: "+"),
+                "rating" : "r", // Keep it dirty, default to R rated
+                "limit": itemsPerPage,
+                "offset": offset
             ]
         case .trending(let page):
             let offset = itemsPerPage * page
 
             params = [
-                "limit": itemsPerPage as AnyObject,
-                "offset": offset as AnyObject
+                "limit": itemsPerPage,
+                "offset": offset
             ]
         }
 
         // Always append API key
-        params["api_key"] = "dc6zaTOxFJmzC" as AnyObject?
+        params["api_key"] = "dc6zaTOxFJmzC"
 
         return params
     }
