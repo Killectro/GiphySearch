@@ -98,7 +98,7 @@ private extension TrendingViewController {
         .addDisposableTo(rx_disposeBag)
     }
 
-    func configureTableCell(_ row: Int, viewModel: GifViewModelType, cell: GifTableViewCell) {
+    func configureTableCell(_ row: Int, viewModel: GifDisplayable, cell: GifTableViewCell) {
         cell.viewModel = viewModel
     }
 }

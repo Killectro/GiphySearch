@@ -23,13 +23,13 @@ protocol TrendingDisplayable {
     // MARK: Outputs
 
     /// The GIFs received from the network. This will either be trending to searched GIFs depending on observables
-    var gifs: Observable<[GifViewModelType]>! { get set }
+    var gifs: Observable<[GifDisplayable]>! { get set }
 }
 
 final class TrendingViewModel: TrendingDisplayable {
 
     // MARK: - Public properties
-    var gifs: Observable<[GifViewModelType]>!
+    var gifs: Observable<[GifDisplayable]>!
 
     // MARK: - Private properties
     fileprivate var networkModel: TrendingNetworkModelType
