@@ -11,44 +11,41 @@ import RxSwift
 import Moya
 
 protocol TrendingViewModelType {
-    var searchText: Variable<String> { get }
-    var isSearching: Variable<Bool> { get }
-
     var gifs: Observable<[GifViewModelType]>! { get set }
 
-    func updateObservables(searchPaginate: Observable<Void>, trendingPaginate: Observable<Void>)
+    func setupObservables(paginate: Observable<Void>, searchText: Observable<String>)
 }
 
 final class TrendingViewModel: TrendingViewModelType {
 
     // MARK: - Public properties
-    let searchText = Variable<String>("")
-    let isSearching = Variable<Bool>(false)
-
     var gifs: Observable<[GifViewModelType]>!
 
     // MARK: - Private properties
-    fileprivate var networkModel: TrendingNetworkModelType!
+    fileprivate var networkModel: TrendingNetworkModelType
 
     // MARK: - Initialization
     init(provider: RxMoyaProvider<GiphyAPI>) {
         networkModel = TrendingNetworkModel(provider: provider)
-
-        setupGifs()
     }
 
     // MARK: - Updating
-    func updateObservables(searchPaginate: Observable<Void>, trendingPaginate: Observable<Void>) {
 
-        networkModel.loadNextSearchPage = searchPaginate
-        networkModel.loadNextTrendingPage = trendingPaginate
+    func setupObservables(paginate: Observable<Void>, searchText: Observable<String>) {
+        let isSearching = searchText.map { $0.characters.count > 0 }
+        let page = paginate.withLatestFrom(isSearching)
+
+        networkModel.loadNextSearchPage = page.filter { $0 }.map { _ in () }
+        networkModel.loadNextTrendingPage = page.filter { !$0 }.map { _ in () }
+
+        setupGifs(isSearching: isSearching, searchText: searchText)
     }
 }
 
 // MARK: - Setup
 private extension TrendingViewModel {
 
-    func setupGifs() {
+    func setupGifs(isSearching: Observable<Bool>, searchText: Observable<String>) {
         let trendingGifs = networkModel.recursivelyGetResults(.trending(page: 0), loadedSoFar: [])
 
         let searchGifs = searchText.asObservable().flatMapLatest { [weak self] text -> Observable<[Gif]> in

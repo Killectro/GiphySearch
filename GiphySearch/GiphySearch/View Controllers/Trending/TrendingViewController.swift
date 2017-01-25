@@ -46,26 +46,29 @@ final class TrendingViewController: UIViewController {
 // MARK: - Setup
 private extension TrendingViewController {
     func setupBindings() {
-        setupTableView()
-        setupSearch()
-        setupPagination()
+        setupViewModel()
+        setupKeyboard()
     }
 
-    func setupSearch() {
-        let search = searchBar.rx.text.orEmpty
+    func setupViewModel() {
+        let searchText = searchBar.rx.text.orEmpty
             .throttle(0.3, scheduler: MainScheduler.instance)
             .distinctUntilChanged()
             .shareReplay(1)
 
-        // Bind the search bar text to the view model's search text
-        search
-            .bindTo(viewModel.searchText)
-            .addDisposableTo(rx_disposeBag)
+        let paginate = tableView.rx
+            .contentOffset
+            .filter { [weak self] offset in
+                guard let `self` = self else { return false }
 
-        // Map the search bar text to isSearching on the view model which toggles which set of gifs to show
-        search.map { $0.characters.count > 0 }
-            .bindTo(viewModel.isSearching)
-            .addDisposableTo(rx_disposeBag)
+                return self.tableView.isNearBottom(threshold: self.startLoadingOffset)
+            }
+            .flatMap { _ in return Observable.just() }
+
+        viewModel.setupObservables(paginate: paginate, searchText: searchText)
+
+        // Bind our table view to our result GIFs once we set up our view model
+        setupTableView()
     }
 
     func setupTableView() {
@@ -83,33 +86,7 @@ private extension TrendingViewController {
             .addDisposableTo(rx_disposeBag)
     }
 
-    func setupPagination() {
-        // Trigger a new page load when near the bottom of the page
-        let loadNextSearchPage = tableView.rx
-            .contentOffset
-            .filter { [weak self] offset in
-                guard let `self` = self else { return false }
-
-                return
-                    self.tableView.isNearBottom(threshold: self.startLoadingOffset) &&
-                    self.viewModel.isSearching.value
-            }
-            .flatMap { _ in return Observable.just() }
-
-        // Trigger a new page load when near the bottom of the page
-        let loadNextTrendingPage = tableView.rx
-            .contentOffset
-            .filter { [weak self] offset in
-                guard let `self` = self else { return false }
-
-                return
-                    self.tableView.isNearBottom(threshold: self.startLoadingOffset) &&
-                    !self.viewModel.isSearching.value
-            }
-            .flatMap { _ in return Observable.just() }
-
-        viewModel.updateObservables(searchPaginate: loadNextSearchPage, trendingPaginate: loadNextTrendingPage)
-
+    func setupKeyboard() {
         // Hide the keyboard when we're scrolling
         tableView.rx.contentOffset.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
