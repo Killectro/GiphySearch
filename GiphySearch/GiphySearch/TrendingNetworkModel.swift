@@ -25,7 +25,7 @@ final class TrendingNetworkModel: TrendingNetworkModelType {
     var loadNextSearchPage: Observable<Void>!
 
     // MARK: - Private properties
-    fileprivate var provider: RxMoyaProvider<GiphyAPI>!
+    fileprivate let provider: RxMoyaProvider<GiphyAPI>
 
     // MARK: - Initialization
     init(provider: RxMoyaProvider<GiphyAPI>) {

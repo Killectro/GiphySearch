@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8D7BB2AC044D3347531B26C6 /* Pods_GiphySearchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D43E8AA8C096B5DF6AF0803 /* Pods_GiphySearchTests.framework */; };
 		8FBB957EAC088BBCDE63B44C /* Pods_GiphySearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AD77228ABF9C43E2CCD1D166 /* Pods_GiphySearch.framework */; };
+		A424C2AA1E384F950036EED2 /* UIScrollView+IsNearBottom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A424C2A91E384F950036EED2 /* UIScrollView+IsNearBottom.swift */; };
 		A47B83A21D68E0A400F99CEB /* GifViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A47B83A11D68E0A400F99CEB /* GifViewModelSpec.swift */; };
 		A48201021D64D56A0015C80A /* TrendingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48201011D64D56A0015C80A /* TrendingViewModel.swift */; };
 		A48201051D64D83D0015C80A /* Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48201041D64D83D0015C80A /* Gif.swift */; };
@@ -45,6 +46,7 @@
 		5BB0E7EA10389AB6F15C75B2 /* Pods-GiphySearchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearchTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySearchTests/Pods-GiphySearchTests.release.xcconfig"; sourceTree = "<group>"; };
 		7D43E8AA8C096B5DF6AF0803 /* Pods_GiphySearchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GiphySearchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8AB99C8C628582F4ACA9AC45 /* Pods-GiphySearchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiphySearchTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiphySearchTests/Pods-GiphySearchTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A424C2A91E384F950036EED2 /* UIScrollView+IsNearBottom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+IsNearBottom.swift"; sourceTree = "<group>"; };
 		A47B83A11D68E0A400F99CEB /* GifViewModelSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifViewModelSpec.swift; sourceTree = "<group>"; };
 		A48201011D64D56A0015C80A /* TrendingViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrendingViewModel.swift; sourceTree = "<group>"; };
 		A48201041D64D83D0015C80A /* Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gif.swift; sourceTree = "<group>"; };
@@ -113,6 +115,14 @@
 				7D43E8AA8C096B5DF6AF0803 /* Pods_GiphySearchTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A424C2A81E384F5A0036EED2 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				A424C2A91E384F950036EED2 /* UIScrollView+IsNearBottom.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		A47B83A01D68E08F00F99CEB /* ViewModels */ = {
@@ -189,6 +199,7 @@
 		A48AAB041D64C0FC00B7DB5A /* GiphySearch */ = {
 			isa = PBXGroup;
 			children = (
+				A424C2A81E384F5A0036EED2 /* Extensions */,
 				A48AAB271D64C1E300B7DB5A /* App */,
 				A48201031D64D8080015C80A /* Models */,
 				A48201061D64DFE90015C80A /* Networking */,
@@ -435,7 +446,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		747688EAE1FB35E8CF590351 /* [CP] Check Pods Manifest.lock */ = {
@@ -450,7 +461,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run \'pod install\' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		81FD05D621341BDAFC6139F0 /* [CP] Copy Pods Resources */ = {
@@ -496,6 +507,7 @@
 				A48201021D64D56A0015C80A /* TrendingViewModel.swift in Sources */,
 				A48201111D650A500015C80A /* GifTableViewCell.swift in Sources */,
 				A48201051D64D83D0015C80A /* Gif.swift in Sources */,
+				A424C2AA1E384F950036EED2 /* UIScrollView+IsNearBottom.swift in Sources */,
 				A48AAB2C1D64C2A700B7DB5A /* TrendingViewController.swift in Sources */,
 				A82BDCAB1DC808B400EC906A /* TrendingNetworkModel.swift in Sources */,
 				A48201081D64E0110015C80A /* GiphyAPI.swift in Sources */,

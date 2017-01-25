@@ -41,14 +41,6 @@ final class TrendingViewController: UIViewController {
 
         // SDWebImage automatically wipes mem cache when it receives a mem warning so do nothing here
     }
-
-    // Determine whether or not we're near the bottom of the table and should paginate
-    func tableView(_ tableView: UITableView, offsetIsNearBottom contentOffset: CGPoint) -> Bool {
-        let isAtBottom = contentOffset.y + tableView.frame.height + startLoadingOffset > tableView.contentSize.height
-        let hasContent = tableView.contentSize.height > tableView.frame.height
-
-        return isAtBottom && hasContent
-    }
 }
 
 // MARK: - Setup
@@ -93,18 +85,26 @@ private extension TrendingViewController {
 
     func setupPagination() {
         // Trigger a new page load when near the bottom of the page
-        let loadNextSearchPage = tableView.rx.contentOffset
+        let loadNextSearchPage = tableView.rx
+            .contentOffset
             .filter { [weak self] offset in
                 guard let `self` = self else { return false }
-                return (self.tableView(self.tableView, offsetIsNearBottom: offset) && self.viewModel.isSearching.value)
+
+                return
+                    self.tableView.isNearBottom(threshold: self.startLoadingOffset) &&
+                    self.viewModel.isSearching.value
             }
             .flatMap { _ in return Observable.just() }
 
         // Trigger a new page load when near the bottom of the page
-        let loadNextTrendingPage = tableView.rx.contentOffset
+        let loadNextTrendingPage = tableView.rx
+            .contentOffset
             .filter { [weak self] offset in
                 guard let `self` = self else { return false }
-                return (self.tableView(self.tableView, offsetIsNearBottom: offset) && !self.viewModel.isSearching.value)
+
+                return
+                    self.tableView.isNearBottom(threshold: self.startLoadingOffset) &&
+                    !self.viewModel.isSearching.value
             }
             .flatMap { _ in return Observable.just() }
 
