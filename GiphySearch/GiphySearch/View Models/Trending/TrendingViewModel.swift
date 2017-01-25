@@ -10,13 +10,23 @@ import UIKit
 import RxSwift
 import Moya
 
-protocol TrendingViewModelType {
-    var gifs: Observable<[GifViewModelType]>! { get set }
+protocol TrendingDisplayable {
+    // MARK: Inputs
 
+    /// Sets up this object with the provided observables
+    ///
+    /// - Parameters:
+    ///   - paginate: When the user has scrolled to the bottom
+    ///   - searchText: The text the user is typing
     func setupObservables(paginate: Observable<Void>, searchText: Observable<String>)
+
+    // MARK: Outputs
+
+    /// The GIFs received from the network. This will either be trending to searched GIFs depending on observables
+    var gifs: Observable<[GifViewModelType]>! { get set }
 }
 
-final class TrendingViewModel: TrendingViewModelType {
+final class TrendingViewModel: TrendingDisplayable {
 
     // MARK: - Public properties
     var gifs: Observable<[GifViewModelType]>!

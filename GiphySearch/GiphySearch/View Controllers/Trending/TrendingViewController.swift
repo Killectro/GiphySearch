@@ -16,7 +16,7 @@ import Moya_ObjectMapper
 final class TrendingViewController: UIViewController {
 
     // MARK: - Public Properties
-    var viewModel: TrendingViewModelType!
+    var viewModel: TrendingDisplayable!
 
     // MARK: - Private Properties
     fileprivate let startLoadingOffset: CGFloat = 20.0
